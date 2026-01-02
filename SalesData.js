@@ -6,7 +6,7 @@ function addlocal(item,index)
     let temp=document.createElement("div")
     temp.dataset.index=index
     temp.setAttribute("class","wrap")
-    temp.innerHTML="<h1>"+item.ti+"</h1> <h3>"+item.ta+"</h3> <button class='delete' onclick='del(event)'>Delete</button>"
+    temp.innerHTML="<h1>"+item.ti+"</h1> <h3>"+item.ta+"</h3> <h3 class='Ad'>"+item.addr+"</h3> <button class='delete' onclick='del(event)'>Delete</button>"
     wrapcon.appendChild(temp)
 }
 for(let count=0; count<locals.items.length; count++)
@@ -25,11 +25,13 @@ function addpop()
     title=inptitle.value
     let inptask=document.getElementById("Phone")
     task=inptask.value
-    locals.items.push({ti:title,ta:task})
+    let inpAddr=document.getElementById("Address")
+    Addr=inpAddr.value
+    locals.items.push({ti:title,ta:task,addr:Addr})
     let wrapcon=document.querySelector(".wrap-con")
     let temp=document.createElement("div")
     temp.setAttribute("class","wrap")
-    temp.innerHTML="<h1>"+title+"</h1> <h3>"+task+"</h3> <button class='delete' onclick='del(event)'>Delete</button>"
+    temp.innerHTML="<h1>"+title+"</h1> <h3>"+task+"</h3> <h3 class='Ad'>"+Addr+"</h3> <button class='delete' onclick='del(event)'>Delete</button>"
     wrapcon.appendChild(temp)
     var overl=document.getElementById("overlay")
     var pop=document.getElementById("popup")
@@ -39,6 +41,7 @@ function addpop()
     temp.dataset.index=locals.items.length-1
     inptitle.value=""
     inptask.value=""
+    inpAddr.value=""
 }
 function popcancel()
 {
@@ -63,7 +66,8 @@ search.addEventListener("keyup",function(){
     wraps.forEach((wrap)=>{
         let title=wrap.querySelector("h1").innerText.toLowerCase()
         let task=wrap.querySelector("h3").innerText.toLowerCase()
-        if((title.includes(slower)) || (task.includes(slower)))
+        let Addr=wrap.querySelector(".Ad").innerText.toLowerCase()
+        if((title.includes(slower)) || (task.includes(slower)) || (Addr.includes(slower)))
         {
             wrap.style.display="block"
         }
